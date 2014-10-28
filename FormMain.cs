@@ -297,5 +297,10 @@ namespace MapPlayer
             }
         }
         #endregion //Event
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

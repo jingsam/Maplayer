@@ -84,9 +84,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="app.ico" />
     <Content Include="gdal19.dll">
@@ -98,6 +96,11 @@
     </Content>
     <Content Include="DLL\ZedGraph.dll" />
     <Content Include="DLL\ZedGraph.XML" />
+    <None Include="Resources\button_stop_blue.png" />
+    <None Include="Resources\button_rewind_blue.png" />
+    <None Include="Resources\button_fastforward_blue.png" />
+    <None Include="Resources\button_pause_blue.png" />
+    <None Include="Resources\button_play_blue.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
