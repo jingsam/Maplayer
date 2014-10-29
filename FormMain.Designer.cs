@@ -87,22 +87,22 @@
             this.graph = new ZedGraph.ZedGraphControl();
             this.grpStatus = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnFastForward = new System.Windows.Forms.PictureBox();
-            this.btnRewind = new System.Windows.Forms.PictureBox();
-            this.btnPlay = new System.Windows.Forms.PictureBox();
-            this.picMap = new System.Windows.Forms.PictureBox();
-            this.btnStop = new System.Windows.Forms.PictureBox();
-            this.txtStep = new System.Windows.Forms.TextBox();
             this.progress = new System.Windows.Forms.ProgressBar();
+            this.txtStep = new System.Windows.Forms.TextBox();
+            this.btnPlay = new System.Windows.Forms.PictureBox();
+            this.btnStop = new System.Windows.Forms.PictureBox();
+            this.btnRewind = new System.Windows.Forms.PictureBox();
+            this.btnFastForward = new System.Windows.Forms.PictureBox();
+            this.picMap = new System.Windows.Forms.PictureBox();
             this.menu.SuspendLayout();
             this.grpLegend.SuspendLayout();
             this.grpStatus.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnFastForward)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnRewind)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPlay)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picMap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnStop)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRewind)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnFastForward)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picMap)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -177,21 +177,21 @@
             // itemPlay
             // 
             this.itemPlay.Name = "itemPlay";
-            this.itemPlay.Size = new System.Drawing.Size(152, 22);
+            this.itemPlay.Size = new System.Drawing.Size(110, 22);
             this.itemPlay.Text = "Play";
             this.itemPlay.Click += new System.EventHandler(this.itemStart_Click);
             // 
             // itemPause
             // 
             this.itemPause.Name = "itemPause";
-            this.itemPause.Size = new System.Drawing.Size(152, 22);
+            this.itemPause.Size = new System.Drawing.Size(110, 22);
             this.itemPause.Text = "Pause";
             this.itemPause.Click += new System.EventHandler(this.itemPause_Click);
             // 
             // itemStop
             // 
             this.itemStop.Name = "itemStop";
-            this.itemStop.Size = new System.Drawing.Size(152, 22);
+            this.itemStop.Size = new System.Drawing.Size(110, 22);
             this.itemStop.Text = "Stop";
             this.itemStop.Click += new System.EventHandler(this.itemStop_Click);
             // 
@@ -705,8 +705,8 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.progress);
             this.panel1.Controls.Add(this.txtStep);
@@ -719,62 +719,15 @@
             this.panel1.Size = new System.Drawing.Size(1008, 48);
             this.panel1.TabIndex = 20;
             // 
-            // btnFastForward
+            // progress
             // 
-            this.btnFastForward.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFastForward.Image = global::MapPlayer.Properties.Resources.button_fastforward_blue;
-            this.btnFastForward.Location = new System.Drawing.Point(128, 4);
-            this.btnFastForward.Name = "btnFastForward";
-            this.btnFastForward.Size = new System.Drawing.Size(40, 40);
-            this.btnFastForward.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnFastForward.TabIndex = 23;
-            this.btnFastForward.TabStop = false;
-            // 
-            // btnRewind
-            // 
-            this.btnRewind.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRewind.Image = global::MapPlayer.Properties.Resources.button_rewind_blue;
-            this.btnRewind.Location = new System.Drawing.Point(40, 4);
-            this.btnRewind.Name = "btnRewind";
-            this.btnRewind.Size = new System.Drawing.Size(40, 40);
-            this.btnRewind.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnRewind.TabIndex = 22;
-            this.btnRewind.TabStop = false;
-            // 
-            // btnPlay
-            // 
-            this.btnPlay.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPlay.Image = global::MapPlayer.Properties.Resources.button_play_blue;
-            this.btnPlay.Location = new System.Drawing.Point(80, 0);
-            this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(48, 48);
-            this.btnPlay.TabIndex = 21;
-            this.btnPlay.TabStop = false;
-            this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
-            // 
-            // picMap
-            // 
-            this.picMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.picMap.BackColor = System.Drawing.Color.White;
-            this.picMap.Location = new System.Drawing.Point(0, 25);
-            this.picMap.Name = "picMap";
-            this.picMap.Size = new System.Drawing.Size(1008, 655);
-            this.picMap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picMap.TabIndex = 8;
-            this.picMap.TabStop = false;
-            // 
-            // btnStop
-            // 
-            this.btnStop.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnStop.Image = global::MapPlayer.Properties.Resources.button_stop_blue;
-            this.btnStop.Location = new System.Drawing.Point(0, 4);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(40, 40);
-            this.btnStop.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnStop.TabIndex = 24;
-            this.btnStop.TabStop = false;
+            this.progress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.progress.Location = new System.Drawing.Point(168, 18);
+            this.progress.Maximum = 50;
+            this.progress.Name = "progress";
+            this.progress.Size = new System.Drawing.Size(838, 10);
+            this.progress.TabIndex = 21;
+            this.progress.Value = 10;
             // 
             // txtStep
             // 
@@ -789,15 +742,66 @@
             this.txtStep.Text = "10 / 50";
             this.txtStep.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // progress
+            // btnPlay
             // 
-            this.progress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.progress.Location = new System.Drawing.Point(168, 18);
-            this.progress.Maximum = 50;
-            this.progress.Name = "progress";
-            this.progress.Size = new System.Drawing.Size(838, 10);
-            this.progress.TabIndex = 21;
-            this.progress.Value = 10;
+            this.btnPlay.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPlay.Image = global::MapPlayer.Properties.Resources.button_play_blue;
+            this.btnPlay.Location = new System.Drawing.Point(80, 0);
+            this.btnPlay.Name = "btnPlay";
+            this.btnPlay.Size = new System.Drawing.Size(48, 48);
+            this.btnPlay.TabIndex = 21;
+            this.btnPlay.TabStop = false;
+            this.btnPlay.Tag = "play";
+            this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
+            // 
+            // btnStop
+            // 
+            this.btnStop.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStop.Image = global::MapPlayer.Properties.Resources.button_stop_blue;
+            this.btnStop.Location = new System.Drawing.Point(0, 4);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(40, 40);
+            this.btnStop.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnStop.TabIndex = 24;
+            this.btnStop.TabStop = false;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // btnRewind
+            // 
+            this.btnRewind.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRewind.Image = global::MapPlayer.Properties.Resources.button_rewind_blue;
+            this.btnRewind.Location = new System.Drawing.Point(40, 4);
+            this.btnRewind.Name = "btnRewind";
+            this.btnRewind.Size = new System.Drawing.Size(40, 40);
+            this.btnRewind.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnRewind.TabIndex = 22;
+            this.btnRewind.TabStop = false;
+            this.btnRewind.Click += new System.EventHandler(this.btnRewind_Click);
+            // 
+            // btnFastForward
+            // 
+            this.btnFastForward.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFastForward.Image = global::MapPlayer.Properties.Resources.button_fastforward_blue;
+            this.btnFastForward.Location = new System.Drawing.Point(128, 4);
+            this.btnFastForward.Name = "btnFastForward";
+            this.btnFastForward.Size = new System.Drawing.Size(40, 40);
+            this.btnFastForward.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnFastForward.TabIndex = 23;
+            this.btnFastForward.TabStop = false;
+            this.btnFastForward.Click += new System.EventHandler(this.btnFastForward_Click);
+            // 
+            // picMap
+            // 
+            this.picMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.picMap.BackColor = System.Drawing.Color.White;
+            this.picMap.Location = new System.Drawing.Point(0, 25);
+            this.picMap.Name = "picMap";
+            this.picMap.Size = new System.Drawing.Size(1008, 655);
+            this.picMap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picMap.TabIndex = 8;
+            this.picMap.TabStop = false;
             // 
             // FormMain
             // 
@@ -822,11 +826,11 @@
             this.grpStatus.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnFastForward)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnRewind)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPlay)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picMap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnStop)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRewind)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnFastForward)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picMap)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

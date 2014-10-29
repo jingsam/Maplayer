@@ -300,7 +300,33 @@ namespace MapPlayer
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
+            if (btnPlay.Tag.ToString() == "play")
+            {
+                this.timer1.Start();
+                btnPlay.Image = Properties.Resources.button_pause_blue;
+                btnPlay.Tag = "pause";
+            }
+            else
+            {
+                this.timer1.Stop();
+                btnPlay.Image = Properties.Resources.button_play_blue;
+                btnPlay.Tag = "play";
+            }
+        }
 
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRewind_Click(object sender, EventArgs e)
+        {
+            this.timer1.Interval = (int)(this.timer1.Interval * 0.5);
+        }
+
+        private void btnFastForward_Click(object sender, EventArgs e)
+        {
+            this.timer1.Interval = (int)(this.timer1.Interval * 1.5);
         }
     }
 }
