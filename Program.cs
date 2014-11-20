@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace MapPlayer
+namespace Maplayer
 {
     static class Program
     {

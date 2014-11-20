@@ -1,7 +1,7 @@
 ﻿using System;
 using OSGeo.GDAL;
 
-namespace MapPlayer
+namespace Maplayer
 {
     class GDALRead
     {

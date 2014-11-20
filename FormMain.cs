@@ -7,7 +7,7 @@ using System.Xml;
 using ZedGraph;
 
 
-namespace MapPlayer
+namespace Maplayer
 {
     public partial class FormMain : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace MapPlayer
+﻿namespace Maplayer
 {
     partial class FormMain
     {
@@ -705,8 +705,8 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.progress);
             this.panel1.Controls.Add(this.txtStep);
@@ -745,7 +745,7 @@
             // btnPlay
             // 
             this.btnPlay.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPlay.Image = global::MapPlayer.Properties.Resources.button_play_blue;
+            this.btnPlay.Image = global::Maplayer.Properties.Resources.button_play_blue;
             this.btnPlay.Location = new System.Drawing.Point(80, 0);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(48, 48);
@@ -757,7 +757,7 @@
             // btnStop
             // 
             this.btnStop.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnStop.Image = global::MapPlayer.Properties.Resources.button_stop_blue;
+            this.btnStop.Image = global::Maplayer.Properties.Resources.button_stop_blue;
             this.btnStop.Location = new System.Drawing.Point(0, 4);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(40, 40);
@@ -769,7 +769,7 @@
             // btnRewind
             // 
             this.btnRewind.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRewind.Image = global::MapPlayer.Properties.Resources.button_rewind_blue;
+            this.btnRewind.Image = global::Maplayer.Properties.Resources.button_rewind_blue;
             this.btnRewind.Location = new System.Drawing.Point(40, 4);
             this.btnRewind.Name = "btnRewind";
             this.btnRewind.Size = new System.Drawing.Size(40, 40);
@@ -781,7 +781,7 @@
             // btnFastForward
             // 
             this.btnFastForward.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFastForward.Image = global::MapPlayer.Properties.Resources.button_fastforward_blue;
+            this.btnFastForward.Image = global::Maplayer.Properties.Resources.button_fastforward_blue;
             this.btnFastForward.Location = new System.Drawing.Point(128, 4);
             this.btnFastForward.Name = "btnFastForward";
             this.btnFastForward.Size = new System.Drawing.Size(40, 40);
@@ -792,9 +792,9 @@
             // 
             // picMap
             // 
-            this.picMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.picMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.picMap.BackColor = System.Drawing.Color.White;
             this.picMap.Location = new System.Drawing.Point(0, 25);
             this.picMap.Name = "picMap";
@@ -817,7 +817,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Map Player";
+            this.Text = "Maplayer";
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
             this.grpLegend.ResumeLayout(false);

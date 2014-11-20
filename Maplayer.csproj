@@ -8,7 +8,7 @@
     <ProjectGuid>{F797D366-16FA-4DBB-AF9A-3F6A9813A484}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MapPlayer</RootNamespace>
+    <RootNamespace>Maplayer</RootNamespace>
     <AssemblyName>MapPlayer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
