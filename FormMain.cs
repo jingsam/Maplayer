@@ -296,7 +296,6 @@ namespace Maplayer
                 (sender as Button).BackColor = dialog.Color;
             }
         }
-        #endregion //Event
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
@@ -328,5 +327,7 @@ namespace Maplayer
         {
             this.timer1.Interval = (int)(this.timer1.Interval * 1.5);
         }
+        #endregion //Event
+
     }
 }

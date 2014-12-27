@@ -152,14 +152,14 @@
             // itemOpen
             // 
             this.itemOpen.Name = "itemOpen";
-            this.itemOpen.Size = new System.Drawing.Size(117, 22);
+            this.itemOpen.Size = new System.Drawing.Size(152, 22);
             this.itemOpen.Text = "Open...";
             this.itemOpen.Click += new System.EventHandler(this.itemOpen_Click);
             // 
             // itemExit
             // 
             this.itemExit.Name = "itemExit";
-            this.itemExit.Size = new System.Drawing.Size(117, 22);
+            this.itemExit.Size = new System.Drawing.Size(152, 22);
             this.itemExit.Text = "Exit";
             this.itemExit.Click += new System.EventHandler(this.itemExit_Click);
             // 
@@ -177,21 +177,21 @@
             // itemPlay
             // 
             this.itemPlay.Name = "itemPlay";
-            this.itemPlay.Size = new System.Drawing.Size(110, 22);
+            this.itemPlay.Size = new System.Drawing.Size(152, 22);
             this.itemPlay.Text = "Play";
             this.itemPlay.Click += new System.EventHandler(this.itemStart_Click);
             // 
             // itemPause
             // 
             this.itemPause.Name = "itemPause";
-            this.itemPause.Size = new System.Drawing.Size(110, 22);
+            this.itemPause.Size = new System.Drawing.Size(152, 22);
             this.itemPause.Text = "Pause";
             this.itemPause.Click += new System.EventHandler(this.itemPause_Click);
             // 
             // itemStop
             // 
             this.itemStop.Name = "itemStop";
-            this.itemStop.Size = new System.Drawing.Size(110, 22);
+            this.itemStop.Size = new System.Drawing.Size(152, 22);
             this.itemStop.Text = "Stop";
             this.itemStop.Click += new System.EventHandler(this.itemStop_Click);
             // 
@@ -256,7 +256,7 @@
             // itemAbout
             // 
             this.itemAbout.Name = "itemAbout";
-            this.itemAbout.Size = new System.Drawing.Size(111, 22);
+            this.itemAbout.Size = new System.Drawing.Size(152, 22);
             this.itemAbout.Text = "About";
             // 
             // grpLegend
@@ -727,7 +727,6 @@
             this.progress.Name = "progress";
             this.progress.Size = new System.Drawing.Size(838, 10);
             this.progress.TabIndex = 21;
-            this.progress.Value = 10;
             // 
             // txtStep
             // 
