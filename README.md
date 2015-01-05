@@ -1,4 +1,4 @@
 Maplayer
 =========
 
-Result player for PSOLA
+Daynamic maps player for PSOLA
