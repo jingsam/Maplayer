@@ -1,4 +1,4 @@
 Maplayer
 =========
 
-Daynamic maps player for PSOLA
+Dynamic maps player for PSOLA
