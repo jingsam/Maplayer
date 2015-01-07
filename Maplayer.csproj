@@ -41,14 +41,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLL\gdal_csharp.dll</HintPath>
     </Reference>
+    <Reference Include="LumenWorks.Framework.IO, Version=3.8.0.0, Culture=neutral, PublicKeyToken=5ad3ea2f85776344, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\LumenWorks.Framework.IO.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml" />
-    <Reference Include="ZedGraph, Version=5.1.5.28844, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLL\ZedGraph.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GDALRead.cs" />
@@ -74,6 +76,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="log.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -87,15 +90,17 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="app.ico" />
+    <Content Include="DLL\LumenWorks.Framework.IO.dll" />
+    <Content Include="DLL\LumenWorks.Framework.IO.XML" />
     <Content Include="gdal19.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="DLL\gdal_csharp.dll" />
+    <Content Include="gdal_csharp.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="gdal_wrap.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="DLL\ZedGraph.dll" />
-    <Content Include="DLL\ZedGraph.XML" />
     <None Include="Resources\button_stop_blue.png" />
     <None Include="Resources\button_rewind_blue.png" />
     <None Include="Resources\button_fastforward_blue.png" />

@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
-using System.Xml;
-
-using ZedGraph;
+using LumenWorks.Framework.IO.Csv;
 
 
 namespace Maplayer
@@ -12,13 +12,11 @@ namespace Maplayer
     public partial class FormMain : Form
     {
         #region Member
-        public string Log;
+        private string _csvPath;
+        private CsvReader _csv;
+        private DataTable _series;
+        private int _count;
 
-        private PointPairList _points;
-
-        private XmlNodeList _iters;
-
-        private int _count = 0;
         #endregion //Member
 
 
@@ -27,8 +25,7 @@ namespace Maplayer
         {
             InitializeComponent();
 
-            this.WindowState = FormWindowState.Maximized;
-            InitControl();
+            WindowState = FormWindowState.Maximized;
         }
         #endregion // Constructor
 
@@ -40,48 +37,35 @@ namespace Maplayer
 
 
         #region Method
-        private void InitControl()
+        private void ReadCsv(String fileName)
         {
-            // Set transparent background
-            graph.Parent = picMap;
-            graph.GraphPane.Fill.Color = Color.Transparent;
-            graph.MasterPane.Fill.IsVisible = false;
-            graph.GraphPane.Chart.Fill.IsVisible = false;
+            _csv = new CsvReader(new StreamReader(fileName), true);
+            string[] headers = _csv.GetFieldHeaders();
+            _series = new DataTable();
+            foreach (string header in headers)
+            {
+                _series.Columns.Add(header, typeof (double));
+            }
 
-            GraphPane myPane = graph.GraphPane;
-            myPane.XAxis.Title.Text = "Generation";
-            myPane.XAxis.Title.FontSpec.Size = 20;
-            myPane.YAxis.Title.Text = "Fitness";
-            myPane.YAxis.Title.FontSpec.Size = 20;
-            myPane.Title.IsVisible = false;
-            myPane.Legend.IsVisible = false;
+            string lines = File.ReadAllLines(fileName);
 
-            _points = new PointPairList();
-            myPane.AddCurve("进程1", _points, Color.Red, SymbolType.Circle);
+            var query = lines.Select(line => line.Split(',').ToArray());
+
+            chart1.DataBindTable(_series);
+
+            _count = 0;
+            this.Text = @"Maplayer - " + fileName;
         }
 
-        private bool ReadLog(String fileName)
+        private void UpdateMap()
         {
-            try
-            {
-                this.Log = fileName;
+            picMap.Refresh();
 
-                XmlDocument doc = new XmlDocument();
-                doc.Load(fileName);
+        }
 
-                XmlElement root = doc.DocumentElement;
-                _iters = root.GetElementsByTagName("iter");
-
-                RefreshMap();
-                RefreshCurve();
-
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            
+        private void UpdateChart()
+        {
+            chart1.DataBindTable(_csv);
         }
 
         private Color GetColor(int value)
@@ -148,43 +132,9 @@ namespace Maplayer
             Bitmap bitmap = new Bitmap(width, height);
 
             int[] data = GDALRead.ReadIntDataset(fileName);
-            this.PiantColor(bitmap, data);
+            PiantColor(bitmap, data);
 
             return bitmap;
-        }
-
-        private void RefreshMap()
-        {
-            XmlNode nodeIter = _iters[_count];
-            _count++;
-
-            // show generation
-            XmlElement elemGen = nodeIter.SelectSingleNode("gen") as XmlElement;
-            txtGeneration.Text = elemGen.InnerText;
-
-            // show fitness
-            XmlElement elemFitness = nodeIter.SelectSingleNode("fitness") as XmlElement;
-            txtFitness.Text = elemFitness.InnerText;
-
-            // show map
-            XmlElement elemFile = nodeIter.SelectSingleNode("file") as XmlElement;
-            String fileName = Path.GetDirectoryName(this.Log) + @"\" + elemFile.InnerText;
-            if (! File.Exists(fileName)) return;
-
-            picMap.Image = this.CreateImage(fileName);
-            picMap.Refresh();
-
-        }
-
-        private void RefreshCurve()
-        {
-            // Add a node of the curve
-            double dGeneration = Double.Parse(txtGeneration.Text);
-            double dFitness = Double.Parse(txtFitness.Text);
-            _points.Add(dGeneration, dFitness);
-            
-            graph.AxisChange();
-            graph.Refresh();
         }
         #endregion
 
@@ -192,33 +142,28 @@ namespace Maplayer
         #region Event
         private void itemOpen_Click(object sender, EventArgs e)
         {
-            OpenFileDialog myDialog = new OpenFileDialog();
-            myDialog.Filter = "Log file (*.xml)|*.xml|All File (*.*)|*.*";
-            DialogResult dlgResult = myDialog.ShowDialog();
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Log file (*.csv)|*.csv|All File (*.*)|*.*";
+            DialogResult dlgResult = dialog.ShowDialog();
             if (dlgResult == DialogResult.OK)
             {
-                if (!ReadLog(myDialog.FileName))
-                {
-                    MessageBox.Show("Failed to load " + myDialog.FileName);
-                }
+                ReadCsv(dialog.FileName);
             }
         }
 
         private void itemExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (_count >= _iters.Count)
-            {
                 timer1.Stop();
                 return;
-            }
 
-            RefreshMap();
-            RefreshCurve();
+
+            UpdateMap();
+            UpdateChart();
         }
 
         private void itemStart_Click(object sender, EventArgs e)
@@ -241,23 +186,23 @@ namespace Maplayer
         {
             if (itemLegend.Checked)
             {
-                this.grpLegend.Show();
+                grpLegend.Show();
             }
             else
             {
-                this.grpLegend.Hide();
+                grpLegend.Hide();
             }
         }
 
-        private void itemGraph_Click(object sender, EventArgs e)
+        private void itemChart_Click(object sender, EventArgs e)
         {
-            if (itemGraph.Checked)
+            if (itemChart.Checked)
             {
-                this.graph.Show();
+                grpChart.Show();
             }
             else
             {
-                this.graph.Hide();
+                grpChart.Hide();
             }
         }
 
@@ -265,11 +210,11 @@ namespace Maplayer
         {
             if (itemStatus.Checked)
             {
-                this.grpStatus.Show();
+                grpStatus.Show();
             }
             else
             {
-                this.grpStatus.Hide();
+                grpStatus.Hide();
             }
         }
 
@@ -277,14 +222,14 @@ namespace Maplayer
         {
             if (itemFullScreen.Checked)
             {
-                this.FormBorderStyle = FormBorderStyle.None;
-                this.WindowState = FormWindowState.Normal;
-                this.WindowState = FormWindowState.Maximized;
+                FormBorderStyle = FormBorderStyle.None;
+                WindowState = FormWindowState.Normal;
+                WindowState = FormWindowState.Maximized;
             }
             else
             {
-                this.FormBorderStyle = FormBorderStyle.Sizable;
-                this.WindowState = FormWindowState.Normal;
+                FormBorderStyle = FormBorderStyle.Sizable;
+                WindowState = FormWindowState.Normal;
             }
         }
 
@@ -293,7 +238,8 @@ namespace Maplayer
             ColorDialog dialog = new ColorDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                (sender as Button).BackColor = dialog.Color;
+                var button = sender as Button;
+                if (button != null) button.BackColor = dialog.Color;
             }
         }
 
@@ -301,13 +247,13 @@ namespace Maplayer
         {
             if (btnPlay.Tag.ToString() == "play")
             {
-                this.timer1.Start();
+                timer1.Start();
                 btnPlay.Image = Properties.Resources.button_pause_blue;
                 btnPlay.Tag = "pause";
             }
             else
             {
-                this.timer1.Stop();
+                timer1.Stop();
                 btnPlay.Image = Properties.Resources.button_play_blue;
                 btnPlay.Tag = "play";
             }
@@ -320,14 +266,18 @@ namespace Maplayer
 
         private void btnRewind_Click(object sender, EventArgs e)
         {
-            this.timer1.Interval = (int)(this.timer1.Interval * 0.5);
+            barSpeed.Value += barSpeed.SmallChange;
         }
 
         private void btnFastForward_Click(object sender, EventArgs e)
         {
-            this.timer1.Interval = (int)(this.timer1.Interval * 1.5);
+            barSpeed.Value -= barSpeed.SmallChange;
+        }
+
+        private void barSpeed_ValueChanged(object sender, EventArgs e)
+        {
+            timer1.Interval = barSpeed.Value;
         }
         #endregion //Event
-
     }
 }
