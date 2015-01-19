@@ -4,7 +4,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using LumenWorks.Framework.IO.Csv;
 
 
 namespace Maplayer
@@ -13,7 +12,6 @@ namespace Maplayer
     {
         #region Member
         private string _csvPath;
-        private CsvReader _csv;
         private DataTable _series;
         private int _count;
 
@@ -39,19 +37,11 @@ namespace Maplayer
         #region Method
         private void ReadCsv(String fileName)
         {
-            _csv = new CsvReader(new StreamReader(fileName), true);
-            string[] headers = _csv.GetFieldHeaders();
-            _series = new DataTable();
-            foreach (string header in headers)
-            {
-                _series.Columns.Add(header, typeof (double));
-            }
+            string[] lines = File.ReadAllLines(fileName);
 
-            string lines = File.ReadAllLines(fileName);
+            var query = lines.Skip(1).Select(line => line.Split(',').ToArray());
 
-            var query = lines.Select(line => line.Split(',').ToArray());
-
-            chart1.DataBindTable(_series);
+            chart1.DataBindTable(query);
 
             _count = 0;
             this.Text = @"Maplayer - " + fileName;
@@ -65,7 +55,7 @@ namespace Maplayer
 
         private void UpdateChart()
         {
-            chart1.DataBindTable(_csv);
+            //chart1.DataBindTable(_csv);
         }
 
         private Color GetColor(int value)
@@ -158,9 +148,7 @@ namespace Maplayer
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-                timer1.Stop();
-                return;
-
+            timer1.Stop();
 
             UpdateMap();
             UpdateChart();
@@ -182,18 +170,6 @@ namespace Maplayer
             _count = 0;
         }
 
-        private void itemLegend_Click(object sender, EventArgs e)
-        {
-            if (itemLegend.Checked)
-            {
-                grpLegend.Show();
-            }
-            else
-            {
-                grpLegend.Hide();
-            }
-        }
-
         private void itemChart_Click(object sender, EventArgs e)
         {
             if (itemChart.Checked)
@@ -206,15 +182,15 @@ namespace Maplayer
             }
         }
 
-        private void itemStatus_Click(object sender, EventArgs e)
+        private void itemLegend_Click(object sender, EventArgs e)
         {
-            if (itemStatus.Checked)
+            if (itemLegend.Checked)
             {
-                grpStatus.Show();
+                grpLegend.Show();
             }
             else
             {
-                grpStatus.Hide();
+                grpLegend.Hide();
             }
         }
 
