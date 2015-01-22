@@ -41,9 +41,6 @@
             this.itemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.controlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.itemPlay = new System.Windows.Forms.ToolStripMenuItem();
-            this.speedUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.slowDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.itemStop = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.itemChart = new System.Windows.Forms.ToolStripMenuItem();
@@ -166,9 +163,6 @@
             // 
             this.controlToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itemPlay,
-            this.speedUpToolStripMenuItem,
-            this.slowDownToolStripMenuItem,
-            this.toolStripSeparator1,
             this.itemStop});
             this.controlToolStripMenuItem.Name = "controlToolStripMenuItem";
             this.controlToolStripMenuItem.ShortcutKeyDisplayString = "";
@@ -179,35 +173,14 @@
             // 
             this.itemPlay.Name = "itemPlay";
             this.itemPlay.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Space)));
-            this.itemPlay.Size = new System.Drawing.Size(183, 22);
+            this.itemPlay.Size = new System.Drawing.Size(171, 22);
             this.itemPlay.Text = "Play";
-            this.itemPlay.Click += new System.EventHandler(this.itemStart_Click);
-            // 
-            // speedUpToolStripMenuItem
-            // 
-            this.speedUpToolStripMenuItem.Name = "speedUpToolStripMenuItem";
-            this.speedUpToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+↑";
-            this.speedUpToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
-            this.speedUpToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.speedUpToolStripMenuItem.Text = "Speed Up";
-            // 
-            // slowDownToolStripMenuItem
-            // 
-            this.slowDownToolStripMenuItem.Name = "slowDownToolStripMenuItem";
-            this.slowDownToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+↓";
-            this.slowDownToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
-            this.slowDownToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.slowDownToolStripMenuItem.Text = "Slow Down";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(180, 6);
+            this.itemPlay.Click += new System.EventHandler(this.itemPlay_Click);
             // 
             // itemStop
             // 
             this.itemStop.Name = "itemStop";
-            this.itemStop.Size = new System.Drawing.Size(183, 22);
+            this.itemStop.Size = new System.Drawing.Size(171, 22);
             this.itemStop.Text = "Stop";
             this.itemStop.Click += new System.EventHandler(this.itemStop_Click);
             // 
@@ -269,7 +242,7 @@
             // itemAbout
             // 
             this.itemAbout.Name = "itemAbout";
-            this.itemAbout.Size = new System.Drawing.Size(152, 22);
+            this.itemAbout.Size = new System.Drawing.Size(111, 22);
             this.itemAbout.Text = "About";
             // 
             // grpLegend
@@ -638,8 +611,8 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.progress);
             this.panel1.Controls.Add(this.txtStep);
@@ -724,9 +697,9 @@
             // 
             // picMap
             // 
-            this.picMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.picMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.picMap.BackColor = System.Drawing.Color.White;
             this.picMap.Location = new System.Drawing.Point(0, 25);
             this.picMap.Name = "picMap";
@@ -749,11 +722,14 @@
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
             legend1.BackColor = System.Drawing.Color.Transparent;
             legend1.DockedToChartArea = "ChartArea1";
+            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            legend1.IsTextAutoFit = false;
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(3, 25);
             this.chart1.Name = "chart1";
-            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
+            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series1.Color = System.Drawing.Color.Black;
@@ -765,7 +741,7 @@
             series1.Name = "Series1";
             series1.YValuesPerPoint = 2;
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(344, 222);
+            this.chart1.Size = new System.Drawing.Size(440, 279);
             this.chart1.TabIndex = 21;
             this.chart1.Text = "Chart1";
             // 
@@ -775,17 +751,17 @@
             this.grpChart.BackColor = System.Drawing.Color.Transparent;
             this.grpChart.Controls.Add(this.chart1);
             this.grpChart.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.grpChart.Location = new System.Drawing.Point(1, 430);
+            this.grpChart.Location = new System.Drawing.Point(1, 373);
             this.grpChart.Name = "grpChart";
-            this.grpChart.Size = new System.Drawing.Size(350, 250);
+            this.grpChart.Size = new System.Drawing.Size(446, 307);
             this.grpChart.TabIndex = 22;
             this.grpChart.TabStop = false;
             this.grpChart.Text = "Chart";
             // 
             // barSpeed
             // 
-            this.barSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.barSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.barSpeed.AutoSize = false;
             this.barSpeed.Location = new System.Drawing.Point(43, 2);
             this.barSpeed.Maximum = 1750;
@@ -913,9 +889,6 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.GroupBox grpChart;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem speedUpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem slowDownToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.TrackBar barSpeed;
         private System.Windows.Forms.Panel panelSpeed;

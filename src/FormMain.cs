@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Data;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 
 namespace Maplayer
@@ -12,9 +13,7 @@ namespace Maplayer
     {
         #region Member
         private string _csvPath;
-        private DataTable _series;
-        private int _count;
-
+        private IEnumerator<string> _datas;
         #endregion //Member
 
 
@@ -37,25 +36,64 @@ namespace Maplayer
         #region Method
         private void ReadCsv(String fileName)
         {
-            string[] lines = File.ReadAllLines(fileName);
-
-            var query = lines.Skip(1).Select(line => line.Split(',').ToArray());
-
-            chart1.DataBindTable(query);
-
-            _count = 0;
+            _csvPath = fileName;
+            picMap.Image = null;
             this.Text = @"Maplayer - " + fileName;
+
+            string[] lines = File.ReadAllLines(fileName);
+            var headers = lines.First();
+            CreateSeries(headers);
+            _datas = lines.Skip(1).GetEnumerator();
+
+            progress.Value = 0;
+            progress.Maximum = lines.Count() - 1;
+            txtStep.Text = string.Format("{0}/{1}", progress.Value, progress.Maximum);
         }
 
-        private void UpdateMap()
+        private void CreateSeries(string headers)
         {
-            picMap.Refresh();
+            chart1.Series.Clear();
 
+            var query = headers.Split(',').Skip(1);
+            foreach (var header in query)
+            {
+                Series series = new Series
+                {
+                    Name = header,
+                    MarkerStyle = MarkerStyle.Circle,
+                    ChartType = SeriesChartType.Spline,
+                    BorderWidth = 2
+                };
+                chart1.Series.Add(series);
+            }
         }
 
         private void UpdateChart()
         {
-            //chart1.DataBindTable(_csv);
+            if (_datas.MoveNext())
+            {
+                var data = _datas.Current.Split(',');
+                int x = int.Parse(data[0]);
+                for (int i = 1; i < data.Count(); i++)
+                {
+                    double y = double.Parse(data[i]);
+                    chart1.Series[i - 1].Points.AddXY(x, y);
+                }
+
+                progress.Value++;
+                txtStep.Text = string.Format("{0}/{1}", progress.Value, progress.Maximum);
+            }
+        }
+
+        private void UpdateMap()
+        {
+            string path = string.Format("{0}\\{1}.tif",
+                Path.GetDirectoryName(_csvPath), progress.Value);
+            if (File.Exists(path))
+            {
+                picMap.Image = CreateImage(path);
+                picMap.Refresh();
+            }
         }
 
         private Color GetColor(int value)
@@ -126,6 +164,61 @@ namespace Maplayer
 
             return bitmap;
         }
+
+        private void Play()
+        {
+            if (!timer1.Enabled)
+            {
+                timer1.Start();
+                itemPlay.Text = "Pause";
+                btnPlay.Image = Properties.Resources.button_pause_blue;
+            }
+        }
+
+        private void Pause()
+        {
+            if (timer1.Enabled)
+            {
+                timer1.Stop();
+                itemPlay.Text = "Play";
+                btnPlay.Image = Properties.Resources.button_play_blue;
+            }
+        }
+
+        private void PlayOrPause()
+        {
+            if (timer1.Enabled)
+            {
+                timer1.Stop();
+                itemPlay.Text = "Play";
+                btnPlay.Image = Properties.Resources.button_play_blue;
+            }
+            else
+            {
+                timer1.Start();
+                itemPlay.Text = "Pause";
+                btnPlay.Image = Properties.Resources.button_pause_blue;
+            }
+        }
+
+        private void StepTo(int step)
+        {
+            if (step >= progress.Value)
+            {
+                for (int i = progress.Value + 1; i <= step; i++)
+                {
+                    timer1_Tick(null, null);
+                }
+            }
+            else
+            {
+                ReadCsv(_csvPath);
+                for (int i = 1; i <= step; i++)
+                {
+                    timer1_Tick(null, null);
+                }
+            }
+        }
         #endregion
 
 
@@ -138,6 +231,7 @@ namespace Maplayer
             if (dlgResult == DialogResult.OK)
             {
                 ReadCsv(dialog.FileName);
+                Play();
             }
         }
 
@@ -148,26 +242,19 @@ namespace Maplayer
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            timer1.Stop();
-
             UpdateMap();
             UpdateChart();
         }
 
-        private void itemStart_Click(object sender, EventArgs e)
+        private void itemPlay_Click(object sender, EventArgs e)
         {
-            timer1.Start();
-        }
-
-        private void itemPause_Click(object sender, EventArgs e)
-        {
-            timer1.Stop();
+            PlayOrPause();
         }
 
         private void itemStop_Click(object sender, EventArgs e)
         {
-            timer1.Stop();
-            _count = 0;
+            Pause();
+            ReadCsv(_csvPath);
         }
 
         private void itemChart_Click(object sender, EventArgs e)
@@ -221,33 +308,23 @@ namespace Maplayer
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            if (btnPlay.Tag.ToString() == "play")
-            {
-                timer1.Start();
-                btnPlay.Image = Properties.Resources.button_pause_blue;
-                btnPlay.Tag = "pause";
-            }
-            else
-            {
-                timer1.Stop();
-                btnPlay.Image = Properties.Resources.button_play_blue;
-                btnPlay.Tag = "play";
-            }
+            PlayOrPause();
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-
+            Pause();
+            ReadCsv(_csvPath);
         }
 
         private void btnRewind_Click(object sender, EventArgs e)
         {
-            barSpeed.Value += barSpeed.SmallChange;
+            StepTo(progress.Value - 2);
         }
 
         private void btnFastForward_Click(object sender, EventArgs e)
         {
-            barSpeed.Value -= barSpeed.SmallChange;
+            StepTo(progress.Value + 2);
         }
 
         private void barSpeed_ValueChanged(object sender, EventArgs e)
