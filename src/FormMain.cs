@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -141,16 +143,29 @@ namespace Maplayer
 
         private void PiantColor(Bitmap bitmap, int[] data)
         {
+            Rectangle rect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+            BitmapData bmpData = bitmap.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+
+            IntPtr ptr = bmpData.Scan0;
+            int numBytes = bmpData.Stride * bitmap.Height;
+            byte[] rgbValues = new byte[numBytes];
+
+            Marshal.Copy(ptr, rgbValues, 0, numBytes);
             for (int i = 0; i < bitmap.Width; i++)
             {
                 for (int j = 0; j < bitmap.Height; j++)
                 {
                     int value = data[i + j * bitmap.Width];
-
+                    int index = i * 3 + j * bmpData.Stride;
                     Color color = GetColor(value);
-                    bitmap.SetPixel(i, j, color);
+                    rgbValues[index] = color.B;
+                    rgbValues[index + 1] = color.G;
+                    rgbValues[index + 2] = color.R;
                 }
             }
+            Marshal.Copy(rgbValues, 0, ptr, numBytes);
+
+            bitmap.UnlockBits(bmpData);
         }
 
         private Bitmap CreateImage(string fileName)
