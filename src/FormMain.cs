@@ -38,6 +38,8 @@ namespace Maplayer
         #region Method
         private void ReadCsv(String fileName)
         {
+            if (!File.Exists(fileName)) return;
+
             _csvPath = fileName;
             picMap.Image = null;
             this.Text = @"Maplayer - " + fileName;
@@ -72,6 +74,8 @@ namespace Maplayer
 
         private void UpdateChart()
         {
+            if (_datas == null) return;
+
             if (_datas.MoveNext())
             {
                 var data = _datas.Current.Split(',');
@@ -103,6 +107,9 @@ namespace Maplayer
             Color color;
             switch (value)
             {
+                case 0:
+                    color = btn0.BackColor;
+                    break;
                 case 1:
                     color = btn1.BackColor;
                     break;
@@ -129,9 +136,6 @@ namespace Maplayer
                     break;
                 case 9:
                     color = btn9.BackColor;
-                    break;
-                case 10:
-                    color = btn10.BackColor;
                     break;
                 default:
                     color = btnDefault.BackColor;
