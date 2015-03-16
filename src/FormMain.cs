@@ -85,6 +85,9 @@ namespace Maplayer
                     double y = double.Parse(data[i]);
                     chart1.Series[i - 1].Points.AddXY(x, y);
                 }
+
+                progress.Value++;
+                txtStep.Text = string.Format("{0}/{1}", progress.Value, progress.Maximum);
             }
         }
 
@@ -258,11 +261,8 @@ namespace Maplayer
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            progress.Value++;
-            txtStep.Text = string.Format("{0}/{1}", progress.Value, progress.Maximum);
-
-            UpdateMap();
             UpdateChart();
+            UpdateMap();
         }
 
         private void itemPlay_Click(object sender, EventArgs e)
